@@ -1,10 +1,14 @@
+import Dashborad from "./pages/Dashboard.js";
+import Products from "./pages/Products.js";
+import Posts from "./pages/Posts.js";
+import NotFound from "./pages/NotFound.js";
 // 1. what view show to user based on Route ?
 function router() {
   // dashboard,products,posts
   const routes = [
-    { path: "/", view: () => console.log("dashboard page") },
-    { path: "/products", view: () => console.log("products page") },
-    { path: "/posts", view: () => console.log("posts page") },
+    { path: "/", view: Dashborad },
+    { path: "/products", view: Products },
+    { path: "/posts", view: Posts },
   ];
   const potentialRoutes = routes.map((item) => {
     return {
@@ -15,12 +19,12 @@ function router() {
   let match = potentialRoutes.find((route) => route.isMatch);
   if (!match) {
     match = {
-      route: { path: "/not-found", view: () => console.log("not-found page") },
+      route: { path: "/not-found", view: NotFound },
       isMatch: true,
     };
   }
   console.log(match);
-  match.route.view();
+  document.querySelector("#app").innerHTML = match.route.view();
 }
 // push user to new url :
 function navigateTo(url) {
