@@ -23,7 +23,6 @@ function router() {
       isMatch: true,
     };
   }
-  console.log(match);
   document.querySelector("#app").innerHTML = match.route.view();
 }
 // push user to new url :
@@ -31,7 +30,23 @@ function navigateTo(url) {
   history.pushState(null, null, url);
   router();
 }
+
 window.addEventListener("popstate", router);
+
+// toggler
+const sidebarToggler = document.querySelector(".sidebar-toggler");
+const sidebar = document.querySelector(".nav");
+const root = document.documentElement;
+sidebarToggler.addEventListener("click", () => {
+  console.log("sidebar-toggler");
+  sidebar.classList.toggle("mini-sidebar");
+  if (sidebar.classList.contains("mini-sidebar")) {
+    root.style.setProperty("--nav-width", "70px");
+  } else {
+    root.style.setProperty("--nav-width", "250px");
+  }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", (e) => {
     if (e.target.hasAttribute("data-link")) {
